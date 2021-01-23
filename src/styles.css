@@ -29,6 +29,10 @@ thead {
   text-transform: lowercase;
 }
 
+.relativeTime {
+  opacity: 0.5;
+}
+
 h1 {
   font-size: 3rem;
   color: white;

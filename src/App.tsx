@@ -143,12 +143,7 @@ export default function App() {
                               const isBestTime = bestTime === time;
 
                               return (
-                                <tr
-                                  key={player}
-                                  style={{
-                                    fontWeight: isBestTime ? 900 : 100
-                                  }}
-                                >
+                                <tr key={player}>
                                   <td style={{ minWidth: "8em" }}>
                                     <Player name={player} />
                                   </td>
@@ -157,11 +152,8 @@ export default function App() {
                                   </td>
                                   <td>
                                     {isBestTime ? null : (
-                                      <small
-                                        style={{ color: "#aaa", fontWeight: 100 }}
-                                      >
-                                        {" "}
-                                  (+{formatTime(time - bestTime)})
+                                      <small className="relativeTime">
+                                        {" "}(+{formatTime(time - bestTime)})
                                       </small>
                                     )}
                                   </td>
