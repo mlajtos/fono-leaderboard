@@ -9,17 +9,30 @@ body {
   margin: 0 auto;
 }
 
+a {
+  color: white;
+}
+
 thead {
   color: white;
   border-bottom: 1px solid #aaa;
 }
 
+h1 {
+  font-size: 3rem;
+  color: white;
+  text-transform: lowercase;
+}
+
 h2 {
   font-size: 2rem;
+  margin-top: 4rem;
   color: white;
+  text-transform: lowercase;
 }
 
 h3 {
   font-size: 1.5rem;
   color: white;
+  text-transform: lowercase;
 }

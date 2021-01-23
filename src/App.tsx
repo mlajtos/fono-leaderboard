@@ -27,7 +27,11 @@ export default function App() {
 
   return (
     <div className="App">
-      <h2>Players</h2>
+      <h1>Fono</h1>
+      <p><a href="https://www.youtube.com/watch?v=NscKjhr1hkI">watch trailer</a></p>
+      <p><a href="https://store.steampowered.com/app/1513670/Fono/">play on Steam</a></p>
+
+      <h2>Winners</h2>
       <p>Players who won most of the levels.</p>
       <table
         style={{
