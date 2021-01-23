@@ -1,5 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { countBy } from "lodash-es";
+// @ts-ignore
+import particles from 'particles.js-es';
+import particlesConfig from "./particlesjs-config.json";
 
 import "./styles.css";
 import "./dm.css";
@@ -25,11 +28,17 @@ export default function App() {
     loadData("http://fono.ninja/leaderboard/json", setData);
   }, []);
 
+  useEffect(() => {
+    particles.init("background", particlesConfig);
+  }, []);
+
   return (
     <div className="App">
+      <div id="background"></div>
+
       <h1>Fono</h1>
-      <p><a href="https://www.youtube.com/watch?v=NscKjhr1hkI">watch trailer</a></p>
       <p><a href="https://store.steampowered.com/app/1513670/Fono/">play on Steam</a></p>
+      <p><a href="https://www.youtube.com/watch?v=NscKjhr1hkI">watch trailer</a></p>
 
       <h2>Winners</h2>
       <p>Players who won most of the levels.</p>
