@@ -80,7 +80,7 @@ export default function App() {
           </tbody>
         </table>
 
-        <h2>Speedrun</h2>
+        <h2>Speedrunners</h2>
         <p>Players who finished all levels.</p>
         <table
           style={{
@@ -120,7 +120,7 @@ export default function App() {
 
 
         <h2>Levels</h2>
-        <p>Breakdown of all levels. Sorted by number of players who finished the level.</p>
+        <p>Breakdown of all levels sorted by the number of players who finished the level.</p>
         <table style={{ borderCollapse: "collapse", textAlign: "left" }}>
           <tbody>
             {Object.entries(data)
