@@ -172,11 +172,20 @@ export default function App() {
                       </table>
                     </td>
                     <td>
-                      {Object.entries(playerList)
-                        .sort((a, b) => a[1] - b[1])
-                        .map(([player, time], i) => (
-                          <Bar key={player} color={stringToColor(player)} width={time} />
-                        ))}
+                      <table>
+                        <tbody>
+                          {Object.entries(playerList)
+                            .sort((a, b) => a[1] - b[1])
+                            .map(([player, time], i) => (
+                              <tr key={player}>
+                                <td>&nbsp;</td>
+                                <td>
+                                  <Bar color={stringToColor(player)} width={time} />
+                                </td>
+                              </tr>
+                            ))}
+                        </tbody>
+                      </table>
                     </td>
                   </tr>
                 </React.Fragment>

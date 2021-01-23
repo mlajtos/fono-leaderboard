@@ -3,14 +3,12 @@ import React from "react";
 export default function Bar({ color, width }: { color: string, width: number }) {
     return <div
         style={{
-            boxSizing: "border-box",
             width,
-            backgroundColor: color,
-            height: "0.5em",
-            //border: "0.05em solid black",
+            backgroundColor: `${color}70`,
+            height: "0.5rem",
+            border: `0.5px solid ${color}`,
             margin: 0,
-            marginBottom: "0.1em",
-            borderRadius: "0.05em"
+            borderRadius: "2px"
         }}
     />
 }
