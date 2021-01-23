@@ -5,6 +5,9 @@
   "keywords": [],
   "main": "src/index.js",
   "dependencies": {
+    "@types/lodash-es": "^4.17.4",
+    "@types/react": "^17.0.0",
+    "@types/react-dom": "^17.0.0",
     "d3-color": "2.0.0",
     "lodash-es": "4.17.20",
     "react": "17.0.0",

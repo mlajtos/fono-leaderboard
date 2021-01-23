@@ -1,11 +1,25 @@
+body {
+  font-family: dm;
+  background-color: #060809;
+  color: #ddc9bb;
+}
+
 .App {
-  font-family: sans-serif;
+  max-width: 60ch;
+  margin: 0 auto;
+}
+
+thead {
+  color: white;
+  border-bottom: 1px solid #aaa;
 }
 
 h2 {
   font-size: 2rem;
+  color: white;
 }
 
 h3 {
   font-size: 1.5rem;
+  color: white;
 }
