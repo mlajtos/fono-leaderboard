@@ -128,7 +128,7 @@ export default function App() {
               .map(([level, playerList]) => (
                 <React.Fragment key={level}>
                   <tr>
-                    <td valign="top" style={{ paddingTop: 5 }}>
+                    <td valign="top" style={{ paddingTop: 5 }} colSpan={2}>
                       <h3 style={{ textAlign: "left" }}>{level} <span style={{ fontSize: "1rem", opacity: 0.5 }}>({Object.keys(playerList).length})</span></h3>
                     </td>
                   </tr>
