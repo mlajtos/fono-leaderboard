@@ -47,13 +47,13 @@ export default function App() {
           style={{
             borderCollapse: "collapse",
             textAlign: "left",
-            minWidth: "10em"
+            minWidth: "14em"
           }}
         >
           <thead>
             <tr>
               <td>Player</td>
-              <td>Levels</td>
+              <td style={{ textAlign: "right" }}>Levels</td>
             </tr>
           </thead>
           <tbody>
