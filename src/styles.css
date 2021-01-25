@@ -51,3 +51,7 @@ h3 {
   color: white;
   text-transform: lowercase;
 }
+
+.Player {
+  white-space: nowrap;
+}

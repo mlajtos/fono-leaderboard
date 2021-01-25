@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
-import { countBy } from "lodash-es";
+//import { countBy } from "lodash-es";
+
 // @ts-ignore
 import particles from 'particles.js-es';
 import particlesConfig from "./particlesjs-config.json";
@@ -11,6 +12,8 @@ import stats from "./stats";
 import Bar from "./Bar";
 import Dot from "./Dot";
 
+import levels from "./Levels.json";
+
 import { formatTime, stringToColor, loadData } from "./utils"
 
 type Data = {
@@ -19,7 +22,18 @@ type Data = {
   };
 }
 
-const Player = ({ name }: { name: string }) => <><Dot color={stringToColor(name)} /> {name.substring(0, 10)}</>
+const formatName = (name: string) => {
+  const hashLenghts = [32, 36, 40];
+  const isHash = hashLenghts.includes(name.length);
+  return isHash ? name.substring(0, 10) : name;
+}
+
+const Player = ({ name }: { name: string }) => (
+  <div className="Player">
+    <Dot color={stringToColor(name)} />
+    <span style={{display: "inline-block",}}>{formatName(name)}</span>
+  </div>
+);
 
 export default function App() {
   const [data, setData] = useState<Data>(stats);
@@ -41,7 +55,7 @@ export default function App() {
         <p><a href="https://store.steampowered.com/app/1513670/Fono/">play on Steam</a></p>
         <p><a href="https://www.youtube.com/watch?v=NscKjhr1hkI">watch trailer</a></p>
 
-        <h2>Winners</h2>
+        {/* <h2>Winners</h2>
         <p>Players who won most of the levels.</p>
         <table
           style={{
@@ -78,10 +92,10 @@ export default function App() {
                 </tr>
               ))}
           </tbody>
-        </table>
+        </table> */}
 
-        <h2>Speedrunners</h2>
-        <p>Players who finished all levels.</p>
+        <h2>Hall of Fame</h2>
+        <p>Players who finished all levels.<br />Time is the sum of best runs.</p>
         <table
           style={{
             borderCollapse: "collapse",
@@ -119,12 +133,12 @@ export default function App() {
         </table>
 
 
-        <h2>Levels</h2>
-        <p>Breakdown of all levels sorted by the number of players who finished the level.</p>
+        <h2>Leaderboards</h2>
+        <p>Breakdown of all levels.<br />Best time wins.</p>
         <table style={{ borderCollapse: "collapse", textAlign: "left" }}>
           <tbody>
             {Object.entries(data)
-              .sort(([_, l1], [__, l2]) => Object.keys(l2).length - Object.keys(l1).length)
+              .sort(([l1, _], [l2, __]) => levels.indexOf(l1) - levels.indexOf(l2))
               .map(([level, playerList]) => (
                 <React.Fragment key={level}>
                   <tr>
