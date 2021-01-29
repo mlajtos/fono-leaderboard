@@ -33,6 +33,7 @@ export default function App() {
         <h1>Fono</h1>
         <p><a href="https://store.steampowered.com/app/1513670/Fono/">play on Steam</a></p>
         <p><a href="https://www.youtube.com/watch?v=NscKjhr1hkI">watch trailer</a></p>
+        <p><a href="mailto:info@fono.ninja">write us</a></p>
 
         {/* <Winners data={data} /> */}
         <HallOfFame data={data} />
