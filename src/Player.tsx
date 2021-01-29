@@ -6,7 +6,7 @@ import { stringToColor } from "./utils";
 const formatName = (name: string) => {
     const hashLenghts = [32, 36, 40];
     const isHash = hashLenghts.includes(name.length);
-    return isHash ? name.substring(0, 10) : name;
+    return isHash ? <span style={{ opacity: 0.5 }}>{name.substring(0, 10)}</span> : name;
 }
 
 export default function Player({ name }: { name: string }) {
