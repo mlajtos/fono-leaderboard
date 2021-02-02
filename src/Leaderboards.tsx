@@ -16,15 +16,17 @@ export default function Leaderboards({ data }: { data: Data }) {
                 <tbody>
                     {Object.entries(data)
                         .sort(([l1, _], [l2, __]) => levels.indexOf(l1) - levels.indexOf(l2))
-                        .map(([level, playerList]) => (
+                        .map(([level, playerList], levelOrder) => (
                             <React.Fragment key={level}>
                                 <tr>
-                                    <td valign="top" style={{ paddingTop: 5 }} colSpan={2}>
-                                        <h3 style={{ textAlign: "left" }}>{level} <span style={{ fontSize: "1rem", opacity: 0.5 }}>({Object.keys(playerList).length})</span></h3>
+                                    <td valign="top" style={{ paddingTop: "1.5rem" }} colSpan={2}>
+                                        <h3 style={{ textAlign: "left" }}>
+                                            <span style={{ opacity: 0.3, fontSize: "1rem" }}>{levelOrder + 1} - </span>
+                                             {level} <span style={{ fontSize: "1rem", opacity: 0.5 }}>({Object.keys(playerList).length})</span></h3>
                                     </td>
                                 </tr>
                                 <tr>
-                                    <td style={{ paddingLeft: "2rem" }}>
+                                    <td style={{ paddingLeft: "2.5rem" }}>
                                         <table>
                                             <tbody>
                                                 {Object.entries(playerList)
@@ -35,13 +37,16 @@ export default function Leaderboards({ data }: { data: Data }) {
 
                                                         return (
                                                             <tr key={player}>
+                                                                <td style={{ textAlign: "right", opacity: 0.3 }}>
+                                                                    {i + 1}.
+                                                                </td>
                                                                 <td style={{ minWidth: "8em" }}>
                                                                     <Player name={player} />
                                                                 </td>
                                                                 <td style={{ textAlign: "right" }}>
                                                                     {formatTime(time)}
                                                                 </td>
-                                                                <td>
+                                                                <td style={{ textAlign: "right" }}>
                                                                     {isBestTime ? null : (
                                                                         <small className="relativeTime">
                                                                             {" "}(+{formatTime(time - bestTime)})
