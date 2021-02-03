@@ -6,20 +6,22 @@ import Player from "./Player";
 import { formatTime } from "./utils";
 import levels from "./Levels.json";
 
-export default function ({ data }: { data: Data }) {
+export default function HallOfFame({ data }: { data: Data }) {
     const stats: { [player: string]: { totalTime: number, finishedLevels: number } } = {};
     let numberOfLevels = levels.length;
 
-    Object.entries(data).forEach(([level, playerList]) => {
-        Object.entries(playerList).forEach(([player, time]) => {
-            if (!stats.hasOwnProperty(player)) {
-                stats[player] = { totalTime: 0, finishedLevels: 0 };
-            }
+    Object.entries(data)
+        .filter(([l, _]) => levels.includes(l))
+        .forEach(([level, playerList]) => {
+            Object.entries(playerList).forEach(([player, time]) => {
+                if (!stats.hasOwnProperty(player)) {
+                    stats[player] = { totalTime: 0, finishedLevels: 0 };
+                }
 
-            stats[player].totalTime += time;
-            stats[player].finishedLevels += 1;
+                stats[player].totalTime += time;
+                stats[player].finishedLevels += 1;
+            })
         })
-    })
 
     const bestPlayers = Object.entries(stats)
         .filter(([_, { finishedLevels }]) => finishedLevels === numberOfLevels)
