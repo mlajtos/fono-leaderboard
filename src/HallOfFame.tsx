@@ -30,7 +30,6 @@ export default function ({ data }: { data: Data }) {
             <p>Players who finished all levels.<br />Time is the sum of best runs.</p>
             <table
                 style={{
-                    borderCollapse: "collapse",
                     textAlign: "left",
                     minWidth: "15em"
                 }}

@@ -3,8 +3,6 @@ import React, { useEffect, useState } from "react";
 import "./styles.css";
 import "./dm.css";
 
-import stats from "./stats";
-
 import { loadData } from "./utils";
 
 import Particles from "./Particles";
@@ -19,7 +17,7 @@ export type Data = {
 }
 
 export default function App() {
-  const [data, setData] = useState<Data>(stats);
+  const [data, setData] = useState<Data | null>(null);
 
   useEffect(() => {
     loadData("http://fono.ninja/leaderboard/json", setData);
@@ -35,10 +33,13 @@ export default function App() {
         <p><a href="https://www.youtube.com/watch?v=NscKjhr1hkI">watch trailer</a></p>
         <p><a href="mailto:info@fono.ninja">write us</a></p>
 
-        {/* <Winners data={data} /> */}
-        <HallOfFame data={data} />
-        <Leaderboards data={data} />
-
+        {
+          data === null ? null : [
+            //<Winners data={data} />,
+            <HallOfFame data={data} />,
+            <Leaderboards data={data} />,
+          ]
+        }
       </div>
     </>
   );
