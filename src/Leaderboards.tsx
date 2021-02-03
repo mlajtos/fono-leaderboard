@@ -32,6 +32,7 @@ declare global {
     }
 }
 
+// eslint-disable-next-line
 Object.prototype.pipe = function (func) {
     return func(this);
 }
@@ -46,9 +47,9 @@ export default function Leaderboards({ data }: { data: Data }) {
             <h2>Levels</h2>
             <p>Summary of all levels.</p>
             <table style={{
-                    textAlign: "left",
-                    minWidth: "15em"
-                }}>
+                textAlign: "left",
+                minWidth: "15em"
+            }}>
                 <thead>
                     <tr>
                         <td colSpan={2}>Level</td>
@@ -69,8 +70,8 @@ export default function Leaderboards({ data }: { data: Data }) {
                                 }
                             })().pipe((count) => (
                                 <>
-                                <td style={{ textAlign: "right", paddingRight: "0.5rem" }}>{count}</td>
-                                <td><Bar width={count} color={"#555555"}/></td>
+                                    <td style={{ textAlign: "right", paddingRight: "0.5rem" }}>{count}</td>
+                                    <td><Bar width={count} color={"#555555"} /></td>
                                 </>
                             ))}
                         </tr>
