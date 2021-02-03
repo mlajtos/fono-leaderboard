@@ -4,10 +4,11 @@ import type { Data } from "./App";
 
 import Player from "./Player";
 import { formatTime } from "./utils";
+import levels from "./Levels.json";
 
 export default function ({ data }: { data: Data }) {
     const stats: { [player: string]: { totalTime: number, finishedLevels: number } } = {};
-    let numberOfLevels = Object.keys(data).length;
+    let numberOfLevels = levels.length;
 
     Object.entries(data).forEach(([level, playerList]) => {
         Object.entries(playerList).forEach(([player, time]) => {
