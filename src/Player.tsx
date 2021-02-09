@@ -13,7 +13,7 @@ export default function Player({ name }: { name: string }) {
     return (
         <div className="Player">
             <Dot color={stringToColor(name)} />
-            <span style={{ display: "inline-block", }}>{formatName(name)}</span>
+            <a href={`#u/${name}`} style={{ display: "inline-block", }}>{formatName(name)}</a>
         </div>
     )
 };

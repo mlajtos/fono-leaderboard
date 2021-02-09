@@ -23,6 +23,25 @@ export default function App() {
     loadData("http://fono.ninja/leaderboard/json", setData);
   }, []);
 
+  const [targetPlayer, setTargetPlayer] = useState<string | undefined>(undefined);
+
+  useEffect(() => {
+    const setTargetPlayerFromUrl = () => {
+      const targetPlayer = document.location.hash.substring(1).replace("u/", "");
+      setTargetPlayer(targetPlayer);
+    }
+
+    setTargetPlayerFromUrl();
+
+    window.addEventListener("hashchange", setTargetPlayerFromUrl, false);
+
+    return () => {
+      window.removeEventListener("hashchange", setTargetPlayerFromUrl, false);
+    }
+  }, []);
+
+  
+
   return (
     <>
       <Particles />
@@ -37,7 +56,7 @@ export default function App() {
           data === null ? null : [
             //<Winners data={data} />,
             <HallOfFame data={data} />,
-            <Leaderboards data={data} />,
+            <Leaderboards data={data} targetPlayer={targetPlayer} />,
           ]
         }
       </div>

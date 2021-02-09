@@ -37,7 +37,7 @@ Object.prototype.pipe = function (func) {
     return func(this);
 }
 
-export default function Leaderboards({ data }: { data: Data }) {
+export default function Leaderboards({ data, targetPlayer }: { data: Data, targetPlayer?: string }) {
     const levelBreakdown = Object.entries(data)
         .filter(([l, _]) => levels.includes(l))
         .sort(([l1, _], [l2, __]) => levels.indexOf(l1) - levels.indexOf(l2));
@@ -60,7 +60,7 @@ export default function Leaderboards({ data }: { data: Data }) {
                     {levels.map((levelName, levelOrder) => (
                         <tr>
                             <td style={{ opacity: 0.3, fontSize: "1rem", textAlign: "right" }}><span>{levelOrder + 1}. </span></td>
-                            <td><span> <a href={`#${levelName}`}>{levelName}</a></span></td>
+                            <td><span style={{ textTransform: "lowercase" }}> <a href={`#${levelName}`}>{levelName}</a></span></td>
                             {(() => {
                                 const successfulLevelSessions = levelBreakdown.find(([level]) => level === levelName);
                                 if (successfulLevelSessions) {
@@ -96,49 +96,62 @@ export default function Leaderboards({ data }: { data: Data }) {
                                         <td style={{ paddingLeft: "2.5rem" }}>
                                             <table>
                                                 <tbody>
-                                                    {Object.entries(playerList)
-                                                        .sort(([_, t1], [__, t2]) => t1 - t2)
-                                                        .map(([player, time], i, a) => {
-                                                            const bestTime = Math.min(...a.map(([_, t]) => t));
-                                                            const isBestTime = bestTime === time;
+                                                    {(() => {
+                                                        const sortedSessions = Object.entries(playerList).sort(([_, t1], [__, t2]) => t1 - t2);
+                                                        let targetPlayerIndex = (
+                                                            targetPlayer
+                                                                ? sortedSessions.findIndex(([player]) => player === targetPlayer)
+                                                                : Number.MAX_SAFE_INTEGER
+                                                        );
+                                                        const loserCount = sortedSessions.length - targetPlayerIndex - 1;
 
-                                                            return (
-                                                                <tr key={player}>
-                                                                    <td style={{ textAlign: "right", opacity: 0.3 }}>
-                                                                        {i + 1}.
-                                                                </td>
-                                                                    <td style={{ minWidth: "8em" }}>
-                                                                        <Player name={player} />
-                                                                    </td>
-                                                                    <td style={{ textAlign: "right" }}>
-                                                                        {formatTime(time)}
-                                                                    </td>
-                                                                    <td style={{ textAlign: "right" }}>
-                                                                        {isBestTime ? null : (
-                                                                            <small className="relativeTime">
-                                                                                {" "}(+{formatTime(time - bestTime)})
-                                                                            </small>
-                                                                        )}
-                                                                    </td>
-                                                                </tr>
-                                                            );
-                                                        })}
-                                                </tbody>
-                                            </table>
-                                        </td>
-                                        <td>
-                                            <table>
-                                                <tbody>
-                                                    {Object.entries(playerList)
-                                                        .sort((a, b) => a[1] - b[1])
-                                                        .map(([player, time], i) => (
-                                                            <tr key={player}>
-                                                                <td>&nbsp;</td>
-                                                                <td>
-                                                                    <Bar color={stringToColor(player)} width={time} />
-                                                                </td>
-                                                            </tr>
-                                                        ))}
+                                                        const summary = (
+                                                            targetPlayer
+                                                                ? (
+                                                                    <tr>
+                                                                        <td />
+                                                                        <td colSpan={4} style={{ paddingTop: "0.25rem", opacity: 0.8 }}>
+                                                                            <a href={`#`}>{`+ ${loserCount} loser${loserCount === 1 ? "" : "s"}`}</a>
+                                                                        </td>
+                                                                    </tr>
+                                                                )
+                                                                : null
+                                                        );
+
+                                                        const table = sortedSessions
+                                                            .filter((_, i) => i <= targetPlayerIndex)
+                                                            .map(([player, time], i, a) => {
+                                                                const bestTime = Math.min(...a.map(([_, t]) => t));
+                                                                const isBestTime = bestTime === time;
+                                                                const shouldHighlight = player === targetPlayer;
+
+                                                                return (
+                                                                    <tr key={player} style={shouldHighlight ? { borderBottom: "2px solid rgba(255, 255, 0, 0.5)" } : {}}>
+                                                                        <td style={{ textAlign: "right", opacity: 0.3 }}>
+                                                                            {i + 1}.
+                                                                        </td>
+                                                                        <td style={{ minWidth: "8em" }}>
+                                                                            <Player name={player} />
+                                                                        </td>
+                                                                        <td style={{ textAlign: "right" }}>
+                                                                            {formatTime(time)}
+                                                                        </td>
+                                                                        <td style={{ textAlign: "right" }}>
+                                                                            {isBestTime ? null : (
+                                                                                <small className="relativeTime">
+                                                                                    {" "}(+{formatTime(time - bestTime)})
+                                                                                </small>
+                                                                            )}
+                                                                        </td>
+                                                                        <td>
+                                                                            <Bar color={stringToColor(player)} width={time} />
+                                                                        </td>
+                                                                    </tr>
+                                                                );
+                                                            });
+
+                                                        return [table, summary];
+                                                    })()}
                                                 </tbody>
                                             </table>
                                         </td>
