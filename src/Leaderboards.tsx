@@ -8,19 +8,29 @@ import levels from "./Levels.json";
 import Bar from "./Bar";
 
 function LevelHeader({ name, order, count }: { name: string, order: number, count: number }) {
-    const selectedLevel = window.location.hash.substring(1);
     const ref = useRef<HTMLHeadingElement>(null);
 
     useEffect(() => {
-        if (selectedLevel === name) {
-            ref.current?.scrollIntoView({ behavior: "smooth" });
+        const focusSelectedLevel = () => {
+            const selectedLevel = document.location.hash.match("#l/(.*)")?.[1];
+            if (selectedLevel === name) {
+                ref.current?.scrollIntoView({ behavior: "smooth" });
+            }
         }
-    }, [name, selectedLevel]);
+    
+        focusSelectedLevel();
+    
+        window.addEventListener("hashchange", focusSelectedLevel, false);
+    
+        return () => {
+          window.removeEventListener("hashchange", focusSelectedLevel, false);
+        }
+      }, []);
 
     return (
         <h3 style={{ textAlign: "left" }} id={name} ref={ref}>
             <span style={{ opacity: 0.3, fontSize: "1rem" }}>{order + 1} - </span>
-            <span><a href={`#${name}`}>{name}</a> </span>
+            <span><a href={`#l/${name}`}>{name}</a> </span>
             <span style={{ fontSize: "1rem", opacity: 0.5 }}>({count})</span>
         </h3>
     );
@@ -60,7 +70,7 @@ export default function Leaderboards({ data, targetPlayer }: { data: Data, targe
                     {levels.map((levelName, levelOrder) => (
                         <tr>
                             <td style={{ opacity: 0.3, fontSize: "1rem", textAlign: "right" }}><span>{levelOrder + 1}. </span></td>
-                            <td><span style={{ textTransform: "lowercase" }}> <a href={`#${levelName}`}>{levelName}</a></span></td>
+                            <td><span style={{ textTransform: "lowercase" }}> <a href={`#l/${levelName}`}>{levelName}</a></span></td>
                             {(() => {
                                 const successfulLevelSessions = levelBreakdown.find(([level]) => level === levelName);
                                 if (successfulLevelSessions) {

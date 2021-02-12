@@ -27,7 +27,7 @@ export default function App() {
 
   useEffect(() => {
     const setTargetPlayerFromUrl = () => {
-      const targetPlayer = document.location.hash.substring(1).replace("u/", "");
+      const targetPlayer = document.location.hash.match("#u/(.*)")?.[1];
       setTargetPlayer(targetPlayer);
     }
 
