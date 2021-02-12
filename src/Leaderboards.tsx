@@ -25,7 +25,7 @@ function LevelHeader({ name, order, count }: { name: string, order: number, coun
         return () => {
           window.removeEventListener("hashchange", focusSelectedLevel, false);
         }
-      }, []);
+      }, [name]);
 
     return (
         <h3 style={{ textAlign: "left" }} id={name} ref={ref}>
