@@ -6,7 +6,6 @@ import "./dm.css";
 import { loadData } from "./utils";
 
 import Particles from "./Particles";
-// import Winners from "./Winners";
 import HallOfFame from "./HallOfFame";
 import Leaderboards from "./Leaderboards";
 
@@ -54,7 +53,6 @@ export default function App() {
 
         {
           data === null ? null : [
-            //<Winners data={data} />,
             <HallOfFame data={data} />,
             <Leaderboards data={data} targetPlayer={targetPlayer} />,
           ]
